@@ -14,10 +14,12 @@ customerList : AngularFireList<any>;
      fullName :new FormControl('',Validators.required)  ,
      email : new FormControl  ('',Validators.email),
      mobile : new FormControl('',[Validators.required,Validators.minLength(8)])  ,
-     location: new FormControl('')   });
+     location: new FormControl(''),
+     BikeName: new FormControl('')
+       });
 getCustomers()
 {
-    this.customerList = this.firebase.list('push-the-notifi');
+    this.customerList = this.firebase.list('customers');
     return this.customerList.snapshotChanges();
 }
   updateCustomer(customer) {
@@ -26,7 +28,8 @@ getCustomers()
         fullName: customer.fullName,
         email: customer.email,
         mobile: customer.mobile,
-        location: customer.location
+        location: customer.location,
+        BikeName:customer.BikeName
       });
   }
 
@@ -44,8 +47,8 @@ getCustomers()
       fullName: customer.fullName,
       email: customer.email,
       mobile: customer.mobile,
-      location: customer.location
-
+      location: customer.location,
+      BikeName: customer.BikeName
     });
   }
 }
