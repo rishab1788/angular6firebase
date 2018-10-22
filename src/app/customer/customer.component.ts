@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit {
- constructor(public customerService: CustomerService) { }
+ constructor(private customerService: CustomerService) { }
   submitted: boolean;
   showSuccessMessage: boolean;
   formControls = this.customerService.form.controls;
@@ -32,7 +32,8 @@ export class CustomerComponent implements OnInit {
         fullName: '',
         email: '',
         mobile: '',
-        location: ''
+        location: '',
+        BikeName: ''
       });
     }
   }
