@@ -1,28 +1,50 @@
-<form class="form-inline">
-  <input class="form-control" name="searchInput" placeholder="Search" #searchInput="ngModel" [(ngModel)]="searchText" style="width: 80%;">
-  <button class="btn btn-outline-primary" (click)="searchText=''">X</button>
-</form>
-<table class="table table-sm">
-  <thead>
-    <th>Full Name</th>
-    <th>Email</th>
-    <th>Mobile</th>
-    <th>location</th>
-    <th></th>
-  </thead>
-  <ng-container *ngFor="let customer of customerArray">
-    <tr class="table-dark" *ngIf="filterCondition(customer)">
-      <td>{{customer.fullName}}</td>
-      <td>{{customer.email}}</td>
-        <td>{{customer.mobile}}</td>
-        <td>{{customer.location}}</td>
-        <td>
-          <button class="btn btn-outline-info" (click)="customerService.populateForm(customer)">Edit</button>
-          <button class="btn btn-outline-danger" (click)="onDelete(customer.$key)">Delete</button>
-        </td>
-    </tr>
-  </ng-container>
-</table>
-<div class="alert alert-danger" *ngIf="showDeletedMessage">
-  Deleted successfully.
+
+<h2>REGISTRAION</h2>
+<div class="row">
+  <div class="col-md-5">
+    <form [formGroup]="this.customerService.form" (ngSubmit)="onSubmit()">
+      <input type="hidden" formControlName="$key">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input formControlName="fullName" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.fullName.errors}">
+        <div class="invalid-feedback" *ngIf="submitted && formControls.fullName.errors">
+          This field is required.</div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input formControlName="email" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.email.errors}">
+        <div class="invalid-feedback" *ngIf="submitted && formControls.email.errors">
+          Invalid email address.</div>
+      </div>
+      <div class="form-group">
+        <label>Mobile</label>
+        <input formControlName="mobile" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.mobile.errors}">
+        <div class="invalid-feedback" *ngIf="submitted && formControls.mobile.errors">
+          <label *ngIf="formControls.mobile.errors.required">This field is required.</label>
+          <label *ngIf="formControls.mobile.errors.minlength">Atleast 8 numbers.</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <input formControlName="location" class="form-control">
+      </div>
+<div class="form-group">
+        <label>Bike Name</label>
+        <input formControlName="BikeName" class="form-control">
+      </div>
+
+
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Submit">
+      </div>
+    </form>
+    <div class="alert alert-info"  *ngIf="showSuccessMessage">
+      Submitted successfully.
+    </div>
+  </div>
+
+  <div class="col-md-7">
+<h2>Records</h2>  
+    <app-customer-list></app-customer-list>
+  </div>
 </div>
