@@ -1,0 +1,40 @@
+<video id="video" width="640" height="480" autoplay></video>
+<button id="snap">Take Photo</button>
+<canvas id="canvas" width="140" height="140"></canvas>
+<canvas id="canvas1" width="140" height="140"></canvas>
+<canvas id="canvas2" width="140" height="140"></canvas>
+<canvas id="canvas3" width="140" height="140"></canvas>
+<canvas id="canvas5" width="140" height="140"></canvas>
+<canvas id="canvas6" width="140" height="140"></canvas>
+
+	<script>
+
+var id=0;
+
+ var video=document.getElementById('video');
+
+ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
+ {
+  navigator.mediaDevices.getUserMedia({video:true,audio:true}).then (function(stream) {
+   video.src=window.URL.createObjectURL(stream);
+  });
+ }
+var canvas=document.getElementById('canvas');
+var context=canvas.getContext('2d');
+var canvas1=document.getElementById('canvas1');
+var context1=canvas1.getContext('2d');
+
+var output = document.getElementById('output');
+var image;
+document.getElementById('snap').addEventListener('click',function() {
+if(id%2==0)
+{
+ context.drawImage(video,0,0,640,480);
+ }
+ else{
+ context1.drawImage(video,0,0,640,480);
+ }id++;
+ 
+ });
+ 
+</script>
